@@ -3,7 +3,7 @@ if (!currentUser) {
   window.location.href = 'signin.html';
 }
 
-const DAHL_API_KEY = 'AQ.Ab8RN6JPdeUr3vHw5vUgoQKWxth__25YkJEZAS8YOwhc7_VoPg';
+const DAHL_API_KEY = 'AQ.Ab8RN6I_Vo-1xkPLOBQ9b9pDsHZ9rv1sA02AlTch48dLjRy-_Q';
 const DAHL_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
 
 const AVAILABLE_MODELS = [
