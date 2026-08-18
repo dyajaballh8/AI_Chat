@@ -1,5 +1,3 @@
-/* المساعد الذكي - الأنماط المشتركة */
-
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
@@ -96,7 +94,6 @@ a { color: inherit; }
 }
 ::-webkit-scrollbar-thumb:hover { background: #33394500; }
 
-/* visible focus ring everywhere, keyboard users included */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -109,7 +106,6 @@ a { color: inherit; }
   }
 }
 
-/* تنسيقات صفحات تسجيل الدخول وإنشاء الحساب */
 
 .auth-screen {
   position: relative;
@@ -320,8 +316,6 @@ a { color: inherit; }
 @media (max-width: 480px) {
   .auth-card { padding: 28px 22px; }
 }
-
-/* تنسيقات صفحة المحادثة الرئيسية */
 
 .app-shell {
   height: 100vh;
@@ -553,7 +547,6 @@ a { color: inherit; }
 
 .btn-logout:hover { color: var(--danger); background: var(--danger-soft); }
 
-/* main chat column */
 
 .chat-main {
   display: flex;
@@ -723,7 +716,6 @@ a { color: inherit; }
   color: #f3a7ab;
 }
 
-/* typing indicator, the "lantern flicker" */
 .typing-dots {
   display: inline-flex;
   gap: 4px;
@@ -831,7 +823,6 @@ a { color: inherit; }
   margin-top: 10px;
 }
 
-/* message meta row: timestamp + copy */
 .msg__meta {
   display: flex;
   align-items: center;
@@ -870,7 +861,6 @@ a { color: inherit; }
   .sidebar { display: none; }
 }
 
-/* أدوات التبديل للغة والمظهر في أعلى شريط المحادثة */
 .chat-topbar__actions {
   display: flex;
   align-items: center;
@@ -922,7 +912,6 @@ a { color: inherit; }
   background: var(--surface);
 }
 
-/* شريط عائم لصفحات الدخول والتسجيل */
 .auth-nav {
   position: absolute;
   top: 20px;
