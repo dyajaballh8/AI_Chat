@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المساعد الذكي — المحادثة</title>
+<link rel="stylesheet" href="css/style.css">
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') document.documentElement.classList.add('light-theme');
+    const savedLang = localStorage.getItem('lang') || 'ar';
+    if (savedLang === 'en') {
+      document.documentElement.lang = 'en';
+      document.documentElement.dir = 'ltr';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- الشريط الجانبي -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <span class="brand-mark">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-.1 3.5-2.5 5.9-6 6 3.5.1 5.9 2.5 6 6 .1-3.5 2.5-5.9 6-6-3.5-.1-5.9-2.5-6-6zm6.5 13.5c-.05 1.75-1.25 2.95-3 3 1.75.05 2.95 1.25 3 3 .05-1.75 1.25-2.95 3-3-1.75-.05-2.95-1.25-3-3z"/></svg>
+      </span>
+      <span class="brand-name" id="sidebarBrandName">المساعد الذكي</span>
+    </div>
+
+    <button class="btn-new-chat" id="newChatBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      محادثة جديدة
+    </button>
+
+    <div class="sidebar-search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="threadSearch" placeholder="دوّر في المحادثات...">
+    </div>
+
+    <div class="thread-list" id="threadList">
+      <!-- بيتضاف هنا الـ threads من chat.js: قسم المثبتة وقسم الباقي -->
+    </div>
+
+    <div class="sidebar__user">
+      <div class="avatar" id="userAvatar">؟</div>
+      <div style="min-width:0;">
+        <div class="sidebar__user-name" id="userName">—</div>
+        <div class="sidebar__user-mail" id="userMail">—</div>
+      </div>
+      <button class="btn-logout" id="logoutBtn" aria-label="تسجيل الخروج" title="تسجيل الخروج">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- عمود المحادثة -->
+  <main class="chat-main">
+
+    <div class="chat-topbar">
+      <span class="chat-topbar__title" id="threadTitle">محادثة جديدة</span>
+      <div class="chat-topbar__actions">
+        <div class="lang-toggle" id="langToggle">
+          <button class="lang-btn is-active" data-lang="ar">عربي</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <button class="theme-toggle" id="themeToggle" title="تبديل المظهر / Toggle Theme" aria-label="تبديل المظهر">
+          <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+        <span class="status-pill" id="statusPill"><i></i>متصل</span>
+      </div>
+    </div>
+
+    <div class="chat-scroll" id="chatScroll">
+
+      <!-- بيظهر لما مفيش رسايل لسه -->
+      <div class="empty-state" id="emptyState">
+        <svg class="empty-state__pattern" viewBox="0 0 24 24" fill="var(--accent)" style="width: 80px; height: 80px; margin: 0 auto 20px; opacity: 0.9;">
+          <path d="M12 2c-.1 3.5-2.5 5.9-6 6 3.5.1 5.9 2.5 6 6 .1-3.5 2.5-5.9 6-6-3.5-.1-5.9-2.5-6-6zm6.5 13.5c-.05 1.75-1.25 2.95-3 3 1.75.05 2.95 1.25 3 3 .05-1.75 1.25-2.95 3-3-1.75-.05-2.95-1.25-3-3z"/>
+        </svg>
+        <h2 id="emptyStateWelcome">اسأل المساعد الذكي أي حاجة</h2>
+        <p id="emptyStateDesc">المحادثة بتفتكر كل اللي بتقوله فيها، فتقدر تكمل عليه من غير ما تكرر نفسك.</p>
+        <div class="suggestion-grid">
+          <button class="suggestion-chip" data-prompt="لخّصلي فكرة الذكاء الاصطناعي في 3 جمل بسيطة">لخّصلي فكرة الذكاء الاصطناعي في 3 جمل</button>
+          <button class="suggestion-chip" data-prompt="اقترح عليا خطة لتعلم JavaScript في شهر">خطة لتعلم JavaScript في شهر</button>
+          <button class="suggestion-chip" data-prompt="اكتبلي رسالة اعتذار عن تأخير في التسليم بشكل مهذب">اكتبلي رسالة اعتذار مهذبة</button>
+          <button class="suggestion-chip" data-prompt="ايه الفرق بين localStorage و sessionStorage؟">الفرق بين localStorage و sessionStorage</button>
+        </div>
+      </div>
+
+      <!-- الرسايل بتتضاف هنا -->
+      <div class="chat-inner" id="chatInner"></div>
+
+    </div>
+
+    <div class="composer-wrap">
+      <form class="composer" id="composerForm">
+        <textarea id="composerInput" rows="1" placeholder="اكتب رسالتك للمساعد الذكي..."></textarea>
+        <select class="composer-model-select" id="modelSelect" aria-label="اختيار الموديل">
+          <!-- قائمة الموديلات المتاحة -->
+        </select>
+        <button type="submit" class="composer-send" id="sendBtn" disabled aria-label="إرسال">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
+      </form>
+
+      <p class="composer-note" id="composerNote">المساعد الذكي ممكن يغلط أحيانًا، راجع المعلومات المهمة قبل ما تعتمد عليها.</p>
+    </div>
+
+  </main>
+
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/chat.js"></script>
+</body>
+</html>
